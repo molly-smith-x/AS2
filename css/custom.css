@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+}
+
+.navbar-brand img {
+    width: 180px;
+    height: auto;
+}
+
+.navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 1px solid #bdbdbd;
+    padding-right: 1rem;
+    margin-right: 1rem;
+}
+
+.site-footer {
+    border-top: 1px solid #ddd;
+    padding-top: 2rem;
+}
+
+.footer-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.footer-heading {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.site-footer ul {
+    margin: 0;
+    padding: 0;
+}
+
+.site-footer li {
+    margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+    text-decoration: none;
+}
+
+.footer-bottom {
+    border-top: 1px solid #ddd;
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item:not(:last-child) .nav-link {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+    }
+}
