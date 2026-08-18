@@ -576,6 +576,15 @@ body {
     margin-bottom: 0;
 }
 
+.product-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.product-link:hover {
+    color: var(--colour-secondary);
+}
+
 
 /* Product detail page */
 
