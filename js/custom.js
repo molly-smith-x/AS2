@@ -1,4 +1,73 @@
+// ==================================================
+// Aotearoa Adventure Gear - Custom JavaScript
+// ==================================================
+
+// Shared values used throughout the website
+const MOBILE_BREAKPOINT = 768;
+const FREE_SHIPPING_THRESHOLD = 600;
+const STANDARD_SHIPPING_COST = 15;
+const TAX_RATE = 0.15;
+const MIN_CART_QUANTITY = 1;
+const MAX_CART_QUANTITY = 10;
+
+
+// ==================================================
+// SHARED FUNCTIONS
+// ==================================================
+
+// Calculate subtotal, tax, shipping and final total
+function calculateOrderTotals(product) {
+
+    const subtotal = product.price * product.quantity;
+    const tax = subtotal * TAX_RATE;
+    const orderValue = subtotal + tax;
+
+    // Shipping is free when the order including tax is $600 or more
+    const shipping =
+        orderValue >= FREE_SHIPPING_THRESHOLD
+            ? 0
+            : STANDARD_SHIPPING_COST;
+
+    const total = orderValue + shipping;
+
+    return {
+        subtotal,
+        tax,
+        shipping,
+        total
+    };
+}
+
+
+// Get the product currently saved in the cart
+function getSavedProduct() {
+
+    const savedProduct =
+        localStorage.getItem("cartProduct");
+
+    if (!savedProduct) {
+        return null;
+    }
+
+    return JSON.parse(savedProduct);
+}
+
+
+// Format prices consistently
+function formatCurrency(value) {
+
+    return `$${value.toFixed(2)}`;
+}
+
+
+// ==================================================
+// HOME PAGE
+// ==================================================
+
+
+// --------------------------------------------------
 // Featured product carousel
+// --------------------------------------------------
 
 const featuredProducts = [
     {
@@ -33,453 +102,659 @@ const featuredProducts = [
     }
 ];
 
-let currentProductIndex = 0;
 
-
-function getProductsPerView() {
-
-    if (window.innerWidth < 768) {
-        return 1;
-    }
-
-    return 2;
-}
-
-
-function displayFeaturedProducts() {
+function initialiseFeaturedCarousel() {
 
     const productContainer =
         document.getElementById("featuredProducts");
 
-    if (!productContainer) {
+    const nextButton =
+        document.getElementById("nextProduct");
+
+    const previousButton =
+        document.getElementById("previousProduct");
+
+    // Stop if this is not the homepage
+    if (!productContainer || !nextButton || !previousButton) {
         return;
     }
 
-    productContainer.innerHTML = "";
 
-    const productsPerView = getProductsPerView();
+    let currentProductIndex = 0;
+    let productsPerView = getProductsPerView();
 
-    for (let i = 0; i < productsPerView; i++) {
 
-        const productIndex =
-            (currentProductIndex + i) %
-            featuredProducts.length;
+    // Show one product on mobile and two on larger screens
+    function getProductsPerView() {
 
-        const product =
-            featuredProducts[productIndex];
+        return window.innerWidth < MOBILE_BREAKPOINT
+            ? 1
+            : 2;
+    }
 
-        const productColumn =
-            document.createElement("div");
 
-        productColumn.className =
-            productsPerView === 1
-                ? "col-12"
-                : "col-12 col-md-6";
+    function displayFeaturedProducts() {
 
-        productColumn.innerHTML = `
-            <article class="product-card">
+        productContainer.innerHTML = "";
 
-                <img
-                    src="${product.image}"
-                    alt="${product.alt}"
-                    class="img-fluid product-image">
+        for (let i = 0; i < productsPerView; i++) {
 
-                <h3>${product.name}</h3>
+            const productIndex =
+                (currentProductIndex + i) %
+                featuredProducts.length;
 
-                <p class="product-price">
-                    $${product.price.toFixed(2)}
-                </p>
+            const product =
+                featuredProducts[productIndex];
 
-                <a
-                    href="product.html"
-                    class="btn btn-adventure">
-                    View Product
-                </a>
+            const productColumn =
+                document.createElement("div");
 
-            </article>
-        `;
+            productColumn.className =
+                productsPerView === 1
+                    ? "col-12"
+                    : "col-12 col-md-6";
 
-        productContainer.appendChild(productColumn);
+
+            productColumn.innerHTML = `
+                <article class="product-card">
+
+                    <img
+                        src="${product.image}"
+                        alt="${product.alt}"
+                        class="img-fluid product-image">
+
+                    <h3>${product.name}</h3>
+
+                    <p class="product-price">
+                        ${formatCurrency(product.price)}
+                    </p>
+
+                    <a
+                        href="product.html"
+                        class="btn btn-adventure">
+                        View Product
+                    </a>
+
+                </article>
+            `;
+
+            productContainer.appendChild(
+                productColumn
+            );
+        }
+    }
+
+
+    // Next product
+    nextButton.addEventListener(
+        "click",
+        function () {
+
+            currentProductIndex++;
+
+            if (
+                currentProductIndex >=
+                featuredProducts.length
+            ) {
+                currentProductIndex = 0;
+            }
+
+            displayFeaturedProducts();
+        }
+    );
+
+
+    // Previous product
+    previousButton.addEventListener(
+        "click",
+        function () {
+
+            currentProductIndex--;
+
+            if (currentProductIndex < 0) {
+
+                currentProductIndex =
+                    featuredProducts.length - 1;
+            }
+
+            displayFeaturedProducts();
+        }
+    );
+
+
+    // Only redraw when crossing the mobile breakpoint
+    window.addEventListener(
+        "resize",
+        function () {
+
+            const updatedProductsPerView =
+                getProductsPerView();
+
+            if (
+                updatedProductsPerView !==
+                productsPerView
+            ) {
+
+                productsPerView =
+                    updatedProductsPerView;
+
+                displayFeaturedProducts();
+            }
+        }
+    );
+
+
+    displayFeaturedProducts();
+}
+
+
+// --------------------------------------------------
+// Floating back-to-top button
+// --------------------------------------------------
+
+function initialiseBackToTop() {
+
+    const backToTopButton =
+        document.getElementById("backToTop");
+
+    if (!backToTopButton) {
+        return;
+    }
+
+
+    function updateBackToTopVisibility() {
+
+        if (window.scrollY > 400) {
+
+            backToTopButton.classList.add("show");
+
+        } else {
+
+            backToTopButton.classList.remove("show");
+        }
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateBackToTopVisibility
+    );
+
+    updateBackToTopVisibility();
+}
+
+
+// ==================================================
+// SHOP PAGE
+// ==================================================
+
+
+// --------------------------------------------------
+// Product search and category filtering
+// --------------------------------------------------
+
+function initialiseShopFilters() {
+
+    const searchForm =
+        document.getElementById("shopSearchForm");
+
+    const searchInput =
+        document.getElementById("shopSearchInput");
+
+    const products =
+        document.querySelectorAll(".shop-product");
+
+    const categoryCards =
+        document.querySelectorAll(
+            ".category-card, .shop-all-card"
+        );
+
+    const browseAllButton =
+        document.getElementById(
+            "browseAllProducts"
+        );
+
+    const productsSection =
+        document.getElementById("products");
+
+
+    // Stop if this is not the shop page
+    if (!products.length) {
+        return;
+    }
+
+
+    // Display every product
+    function showAllProducts() {
+
+        products.forEach(function (product) {
+
+            product.style.display = "";
+        });
+    }
+
+
+    // Search product names and categories
+    function filterProducts(searchTerm) {
+
+        products.forEach(function (product) {
+
+            const productName =
+                product.dataset.name.toLowerCase();
+
+            const productCategory =
+                product.dataset.category.toLowerCase();
+
+            const isMatch =
+                productName.includes(searchTerm) ||
+                productCategory.includes(searchTerm);
+
+            product.style.display =
+                isMatch ? "" : "none";
+        });
+    }
+
+
+    // Search form
+    if (searchForm && searchInput) {
+
+        searchForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                const searchTerm =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
+
+                filterProducts(searchTerm);
+
+
+                // Move the user to the search results
+                if (productsSection) {
+
+                    productsSection.scrollIntoView({
+                        behavior: "smooth"
+                    });
+                }
+            }
+        );
+    }
+
+
+    // Category buttons
+    categoryCards.forEach(function (card) {
+
+        card.addEventListener(
+            "click",
+            function () {
+
+                const selectedCategory =
+                    card.dataset.category;
+
+
+                if (selectedCategory === "all") {
+
+                    showAllProducts();
+                    return;
+                }
+
+
+                products.forEach(
+                    function (product) {
+
+                        product.style.display =
+                            product.dataset.category ===
+                            selectedCategory
+                                ? ""
+                                : "none";
+                    }
+                );
+            }
+        );
+    });
+
+
+    // Browse all products
+    if (browseAllButton) {
+
+        browseAllButton.addEventListener(
+            "click",
+            function () {
+
+                showAllProducts();
+
+                if (searchInput) {
+                    searchInput.value = "";
+                }
+            }
+        );
     }
 }
 
 
-const nextButton =
-    document.getElementById("nextProduct");
+// ==================================================
+// PRODUCT PAGE
+// ==================================================
 
-if (nextButton) {
-
-    nextButton.addEventListener("click", function () {
-
-        currentProductIndex++;
-
-        if (currentProductIndex >= featuredProducts.length) {
-            currentProductIndex = 0;
-        }
-
-        displayFeaturedProducts();
-    });
-
-}
-
-
-const previousButton =
-    document.getElementById("previousProduct");
-
-if (previousButton) {
-
-    previousButton.addEventListener("click", function () {
-
-        currentProductIndex--;
-
-        if (currentProductIndex < 0) {
-            currentProductIndex =
-                featuredProducts.length - 1;
-        }
-
-        displayFeaturedProducts();
-    });
-
-}
-
-
-window.addEventListener("resize", function () {
-    displayFeaturedProducts();
-});
-
-
-displayFeaturedProducts();
-
-// Floating back-to-top navigation
-
-const backToTopButton =
-    document.getElementById("backToTop");
-
-if (backToTopButton) {
-
-    window.addEventListener("scroll", function () {
-
-        if (window.scrollY > 400) {
-            backToTopButton.classList.add("show");
-        } else {
-            backToTopButton.classList.remove("show");
-        }
-
-    });
-
-}
 
 // --------------------------------------------------
-// Shop product filtering
+// Add product to cart
 // --------------------------------------------------
 
-const searchForm = document.getElementById("shopSearchForm");
-const searchInput = document.getElementById("shopSearchInput");
-const products = document.querySelectorAll(".shop-product");
-const categoryCards = document.querySelectorAll(".category-card, .shop-all-card");
-const browseAllButton = document.getElementById("browseAllProducts");
+function initialiseAddToCart() {
+
+    const addToCartButton =
+        document.getElementById(
+            "addToCartButton"
+        );
+
+    const colourSelect =
+        document.getElementById("packColour");
 
 
-// Search for products
-if (searchForm) {
+    // Stop if this is not the product page
+    if (!addToCartButton || !colourSelect) {
+        return;
+    }
 
-    searchForm.addEventListener("submit", function (event) {
 
-        event.preventDefault();
+    addToCartButton.addEventListener(
+        "click",
+        function () {
 
-        const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedColour =
+                colourSelect.value;
 
-        products.forEach(function (product) {
 
-            const productName = product.dataset.name.toLowerCase();
-            const productCategory = product.dataset.category.toLowerCase();
+            // A colour must be selected
+            if (selectedColour === "") {
 
-            if (
-                productName.includes(searchTerm) ||
-                productCategory.includes(searchTerm)
-            ) {
-                product.style.display = "";
-            } else {
-                product.style.display = "none";
+                alert(
+                    "Please select a colour before adding this product to your cart."
+                );
+
+                return;
             }
 
-        });
 
-        document.getElementById("products").scrollIntoView({
-            behavior: "smooth"
-        });
+            const product = {
+                name: "Southern Traverse 45L Pack",
+                price: 189.00,
+                image:
+                    "images/southern-traverse-pack.jpg",
+                colour: selectedColour,
+                quantity: 1
+            };
 
-    });
-}
-
-
-// Filter products by category
-categoryCards.forEach(function (card) {
-
-    card.addEventListener("click", function () {
-
-        const selectedCategory = card.dataset.category;
-
-        products.forEach(function (product) {
-
-            if (
-                selectedCategory === "all" ||
-                product.dataset.category === selectedCategory
-            ) {
-                product.style.display = "";
-            } else {
-                product.style.display = "none";
-            }
-
-        });
-
-    });
-
-});
-
-
-// Browse All button
-if (browseAllButton) {
-
-    browseAllButton.addEventListener("click", function () {
-
-        products.forEach(function (product) {
-            product.style.display = "";
-        });
-
-        if (searchInput) {
-            searchInput.value = "";
-        }
-
-    });
-
-}
-
-
-// --------------------------------------------------
-// Product page - Add to Cart
-// --------------------------------------------------
-
-const addToCartButton = document.getElementById("addToCartButton");
-const colourSelect = document.getElementById("packColour");
-
-if (addToCartButton && colourSelect) {
-
-    addToCartButton.addEventListener("click", function () {
-
-        const selectedColour = colourSelect.value;
-
-        // Require the customer to select a colour first
-        if (selectedColour === "") {
-            alert("Please select a colour before adding this product to your cart.");
-            return;
-        }
-
-        const product = {
-            name: "Southern Traverse 45L Pack",
-            price: 189.00,
-            image: "images/southern-traverse-pack.jpg",
-            colour: selectedColour,
-            quantity: 1
-        };
-
-        localStorage.setItem("cartProduct", JSON.stringify(product));
-
-        addToCartButton.innerHTML =
-            '<i class="bi bi-check-lg"></i> Added to Cart';
-    });
-
-}
-
-
-// --------------------------------------------------
-// Shopping cart
-// --------------------------------------------------
-
-const cartItemsContainer = document.getElementById("cartItems");
-const emptyCartMessage = document.getElementById("emptyCartMessage");
-const cartSubtotal = document.getElementById("cartSubtotal");
-const cartTax = document.getElementById("cartTax");
-const cartShipping = document.getElementById("cartShipping");
-const cartTotal = document.getElementById("cartTotal");
-const checkoutButton = document.getElementById("checkoutButton");
-
-if (cartItemsContainer) {
-
-    const savedProduct = localStorage.getItem("cartProduct");
-
-    if (savedProduct) {
-
-        const product = JSON.parse(savedProduct);
-
-        cartItemsContainer.innerHTML = `
-            <article class="cart-item">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    class="cart-item-image">
-
-                <div class="cart-item-details">
-
-                    <h2>${product.name}</h2>
-
-                    <p class="cart-item-colour">
-                        Colour: ${product.colour}
-                    </p>
-
-                    <p class="cart-item-price">
-                        $${product.price.toFixed(2)}
-                    </p>
-
-                </div>
-
-                <div class="cart-quantity">
-
-                    <label for="cartQuantity">
-                        Quantity
-                    </label>
-
-                    <input
-                        type="number"
-                        class="form-control"
-                        id="cartQuantity"
-                        min="1"
-                        max="10"
-                        value="${product.quantity}">
-
-                </div>
-
-            </article>
-        `;
-
-        const quantityInput =
-            document.getElementById("cartQuantity");
-
-        function updateCartTotals() {
-
-            let quantity = Number(quantityInput.value);
-
-            if (quantity < 1) {
-                quantity = 1;
-                quantityInput.value = 1;
-            }
-
-            if (quantity > 10) {
-                quantity = 10;
-                quantityInput.value = 10;
-            }
-
-            const subtotal =
-                product.price * quantity;
-
-            const tax =
-                subtotal * 0.15;
-
-            // Order value including tax
-            const orderValue =
-                subtotal + tax;
-
-            // Free shipping for orders of $600 or more
-            const shipping =
-                orderValue >= 600 ? 0 : 15;
-
-            const total =
-                orderValue + shipping;
-
-            cartSubtotal.textContent =
-                `$${subtotal.toFixed(2)}`;
-
-            cartShipping.textContent =
-                shipping === 0
-                    ? "FREE"
-                    : `$${shipping.toFixed(2)}`;
-
-            cartTax.textContent =
-                `$${tax.toFixed(2)}`;
-
-            cartTotal.textContent =
-                `$${total.toFixed(2)}`;
-
-            product.quantity = quantity;
 
             localStorage.setItem(
                 "cartProduct",
                 JSON.stringify(product)
             );
 
-            localStorage.setItem(
-                "cartTotal",
-                total.toFixed(2)
+
+            // Give the user confirmation
+            addToCartButton.innerHTML =
+                '<i class="bi bi-check-lg"></i> Added to Cart';
+        }
+    );
+}
+
+
+// ==================================================
+// CART PAGE
+// ==================================================
+
+
+// --------------------------------------------------
+// Display cart and calculate totals
+// --------------------------------------------------
+
+function initialiseShoppingCart() {
+
+    const cartItemsContainer =
+        document.getElementById("cartItems");
+
+
+    // Stop if this is not the cart page
+    if (!cartItemsContainer) {
+        return;
+    }
+
+
+    const emptyCartMessage =
+        document.getElementById(
+            "emptyCartMessage"
+        );
+
+    const cartSubtotal =
+        document.getElementById("cartSubtotal");
+
+    const cartTax =
+        document.getElementById("cartTax");
+
+    const cartShipping =
+        document.getElementById("cartShipping");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    const checkoutButton =
+        document.getElementById(
+            "checkoutButton"
+        );
+
+    const product =
+        getSavedProduct();
+
+
+    // Display an empty cart if no product is stored
+    if (!product) {
+
+        if (emptyCartMessage) {
+
+            emptyCartMessage.classList.remove(
+                "d-none"
             );
         }
 
-        quantityInput.addEventListener(
-            "input",
-            updateCartTotals
-        );
 
-        updateCartTotals();
+        if (checkoutButton) {
 
-    } else {
+            checkoutButton.classList.add(
+                "disabled"
+            );
 
-        emptyCartMessage.classList.remove("d-none");
+            checkoutButton.setAttribute(
+                "aria-disabled",
+                "true"
+            );
+        }
 
-        checkoutButton.classList.add("disabled");
-        checkoutButton.setAttribute("aria-disabled", "true");
+        return;
     }
 
+
+    // Create the cart product
+    cartItemsContainer.innerHTML = `
+        <article class="cart-item">
+
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+                class="cart-item-image">
+
+            <div class="cart-item-details">
+
+                <h2>${product.name}</h2>
+
+                <p class="cart-item-colour">
+                    Colour: ${product.colour}
+                </p>
+
+                <p class="cart-item-price">
+                    ${formatCurrency(product.price)}
+                </p>
+
+            </div>
+
+            <div class="cart-quantity">
+
+                <label for="cartQuantity">
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    id="cartQuantity"
+                    min="${MIN_CART_QUANTITY}"
+                    max="${MAX_CART_QUANTITY}"
+                    value="${product.quantity}">
+
+            </div>
+
+        </article>
+    `;
+
+
+    const quantityInput =
+        document.getElementById("cartQuantity");
+
+
+    // Recalculate whenever quantity changes
+    function updateCartTotals() {
+
+        let quantity =
+            Number(quantityInput.value);
+
+
+        // Keep quantity between 1 and 10
+        if (quantity < MIN_CART_QUANTITY) {
+
+            quantity =
+                MIN_CART_QUANTITY;
+        }
+
+
+        if (quantity > MAX_CART_QUANTITY) {
+
+            quantity =
+                MAX_CART_QUANTITY;
+        }
+
+
+        quantityInput.value = quantity;
+        product.quantity = quantity;
+
+
+        const totals =
+            calculateOrderTotals(product);
+
+
+        cartSubtotal.textContent =
+            formatCurrency(totals.subtotal);
+
+        cartTax.textContent =
+            formatCurrency(totals.tax);
+
+        cartShipping.textContent =
+            totals.shipping === 0
+                ? "FREE"
+                : formatCurrency(
+                    totals.shipping
+                );
+
+        cartTotal.textContent =
+            formatCurrency(totals.total);
+
+
+        // Save updated quantity
+        localStorage.setItem(
+            "cartProduct",
+            JSON.stringify(product)
+        );
+
+
+        // Save total for later checkout pages
+        localStorage.setItem(
+            "cartTotal",
+            totals.total.toFixed(2)
+        );
+    }
+
+
+    quantityInput.addEventListener(
+        "input",
+        updateCartTotals
+    );
+
+
+    updateCartTotals();
 }
 
+
+// ==================================================
+// SHIPPING PAGE
+// ==================================================
+
+
 // --------------------------------------------------
-// Shipping details page
+// Display order summary and validate shipping form
 // --------------------------------------------------
 
-const shippingForm = document.getElementById("shippingForm");
+function initialiseShippingPage() {
 
-if (shippingForm) {
+    const shippingForm =
+        document.getElementById("shippingForm");
 
-    const savedProduct = localStorage.getItem("cartProduct");
+
+    // Stop if this is not the shipping page
+    if (!shippingForm) {
+        return;
+    }
+
+
+    const product =
+        getSavedProduct();
 
     const shippingSummaryProduct =
-        document.getElementById("shippingSummaryProduct");
+        document.getElementById(
+            "shippingSummaryProduct"
+        );
 
     const shippingSubtotal =
-        document.getElementById("shippingSubtotal");
+        document.getElementById(
+            "shippingSubtotal"
+        );
 
     const shippingCost =
-        document.getElementById("shippingCost");
+        document.getElementById(
+            "shippingCost"
+        );
 
     const shippingTax =
-        document.getElementById("shippingTax");
+        document.getElementById(
+            "shippingTax"
+        );
 
     const shippingTotal =
-        document.getElementById("shippingTotal");
+        document.getElementById(
+            "shippingTotal"
+        );
 
 
     // --------------------------------------------------
-    // Display order summary
+    // Order summary
     // --------------------------------------------------
 
-    if (savedProduct) {
+    if (product) {
 
-        const product = JSON.parse(savedProduct);
-
-        const subtotal =
-            product.price * product.quantity;
-
-        const tax =
-            subtotal * 0.15;
-
-        const orderValue =
-            subtotal + tax;
-
-        // Free shipping when order value is $600 or more
-        const shipping =
-            orderValue >= 600 ? 0 : 15;
-
-        const total =
-            orderValue + shipping;
+        const totals =
+            calculateOrderTotals(product);
 
 
         shippingSummaryProduct.innerHTML = `
@@ -490,7 +765,10 @@ if (shippingForm) {
                     alt="${product.name}">
 
                 <div>
-                    <strong>${product.name}</strong>
+
+                    <strong>
+                        ${product.name}
+                    </strong>
 
                     <small>
                         ${product.colour}
@@ -499,6 +777,7 @@ if (shippingForm) {
                     <small>
                         Quantity: ${product.quantity}
                     </small>
+
                 </div>
 
             </div>
@@ -506,118 +785,186 @@ if (shippingForm) {
 
 
         shippingSubtotal.textContent =
-            `$${subtotal.toFixed(2)}`;
+            formatCurrency(totals.subtotal);
 
         shippingCost.textContent =
-            shipping === 0
+            totals.shipping === 0
                 ? "FREE"
-                : `$${shipping.toFixed(2)}`;
+                : formatCurrency(
+                    totals.shipping
+                );
 
         shippingTax.textContent =
-            `$${tax.toFixed(2)}`;
+            formatCurrency(totals.tax);
 
         shippingTotal.textContent =
-            `$${total.toFixed(2)}`;
+            formatCurrency(totals.total);
 
 
-        // Save total for payment page
         localStorage.setItem(
             "cartTotal",
-            total.toFixed(2)
+            totals.total.toFixed(2)
         );
     }
 
 
     // --------------------------------------------------
-    // Validate shipping form
+    // Shipping form validation
     // --------------------------------------------------
 
-    shippingForm.addEventListener("submit", function (event) {
+    shippingForm.addEventListener(
+        "submit",
+        function (event) {
 
-        event.preventDefault();
-
-        const firstName =
-            document.getElementById("firstName").value.trim();
-
-        const lastName =
-            document.getElementById("lastName").value.trim();
-
-        const address =
-            document.getElementById("address").value.trim();
-
-        const country =
-            document.getElementById("country").value;
-
-        const city =
-            document.getElementById("city").value.trim();
-
-        const postcode =
-            document.getElementById("postcode").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
+            event.preventDefault();
 
 
-        // Check required fields
-        if (
-            firstName === "" ||
-            lastName === "" ||
-            address === "" ||
-            country === "" ||
-            city === "" ||
-            postcode === "" ||
-            phone === ""
-        ) {
-            alert("Please complete all required shipping details.");
-            return;
+            const firstName =
+                document
+                    .getElementById("firstName")
+                    .value.trim();
+
+            const lastName =
+                document
+                    .getElementById("lastName")
+                    .value.trim();
+
+            const address =
+                document
+                    .getElementById("address")
+                    .value.trim();
+
+            const address2 =
+                document
+                    .getElementById("address2")
+                    .value.trim();
+
+            const country =
+                document
+                    .getElementById("country")
+                    .value;
+
+            const city =
+                document
+                    .getElementById("city")
+                    .value.trim();
+
+            const postcode =
+                document
+                    .getElementById("postcode")
+                    .value.trim();
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value.trim();
+
+
+            // Check required fields
+            if (
+                firstName === "" ||
+                lastName === "" ||
+                address === "" ||
+                country === "" ||
+                city === "" ||
+                postcode === "" ||
+                phone === ""
+            ) {
+
+                alert(
+                    "Please complete all required shipping details."
+                );
+
+                return;
+            }
+
+
+            // NZ postcodes must contain four digits
+            if (
+                country === "NZ" &&
+                !/^\d{4}$/.test(postcode)
+            ) {
+
+                alert(
+                    "Please enter a valid 4-digit New Zealand postcode."
+                );
+
+                return;
+            }
+
+
+            // Basic phone number validation
+            if (
+                !/^[0-9+\s-]{7,15}$/.test(phone)
+            ) {
+
+                alert(
+                    "Please enter a valid phone number."
+                );
+
+                return;
+            }
+
+
+            const selectedShippingMethod =
+                document.querySelector(
+                    'input[name="shippingMethod"]:checked'
+                );
+
+
+            if (!selectedShippingMethod) {
+
+                alert(
+                    "Please select a shipping method."
+                );
+
+                return;
+            }
+
+
+            // Store details for the payment page
+            const shippingDetails = {
+                firstName,
+                lastName,
+                address,
+                address2,
+                country,
+                city,
+                postcode,
+                phone,
+                shippingMethod:
+                    selectedShippingMethod.value
+            };
+
+
+            localStorage.setItem(
+                "shippingDetails",
+                JSON.stringify(
+                    shippingDetails
+                )
+            );
+
+
+            // Continue to payment
+            window.location.href =
+                "payment.html";
         }
-
-
-        // Check NZ postcode
-        if (country === "NZ" && !/^\d{4}$/.test(postcode)) {
-            alert("Please enter a valid 4-digit New Zealand postcode.");
-            return;
-        }
-
-
-        // Check phone number
-        if (!/^[0-9+\s-]{7,15}$/.test(phone)) {
-            alert("Please enter a valid phone number.");
-            return;
-        }
-
-
-        // Find selected shipping method
-        const shippingMethod =
-            document.querySelector(
-                'input[name="shippingMethod"]:checked'
-            ).value;
-
-
-        // Save shipping information
-        const shippingDetails = {
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            address2:
-                document.getElementById("address2").value.trim(),
-            country: country,
-            city: city,
-            postcode: postcode,
-            phone: phone,
-            shippingMethod: shippingMethod
-        };
-
-
-        localStorage.setItem(
-            "shippingDetails",
-            JSON.stringify(shippingDetails)
-        );
-
-
-        // Continue to payment
-        window.location.href = "payment.html";
-
-    });
-
+    );
 }
+
+
+// ==================================================
+// INITIALISE PAGE FEATURES
+// ==================================================
+//
+// The same custom.js file is loaded by every page.
+// Each function checks whether its required HTML
+// exists before doing anything.
+// ==================================================
+
+initialiseFeaturedCarousel();
+initialiseBackToTop();
+initialiseShopFilters();
+initialiseAddToCart();
+initialiseShoppingCart();
+initialiseShippingPage();
