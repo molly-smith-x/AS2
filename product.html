@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Aotearoa Adventure Gear - outdoor equipment and adventure gear for New Zealand explorers.">
+
+    <meta name="author" content="Molly Smith">
+
+    <title>Aotearoa Adventure Gear | Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body id="top">
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="Aotearoa Adventure Gear logo">
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help">Help</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-dark" href="cart.html">
+                                <i class="bi bi-cart3"></i> Your Cart</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- Product Detail -->
+        <section class="product-detail-section">
+            <div class="container">
+
+                <div class="row g-5 align-items-start">
+
+                    <!-- Product Image -->
+                    <div class="col-12 col-lg-6">
+                        <img src="images/southern-traverse-pack.jpg" alt="Southern Traverse 45L hiking backpack" class="img-fluid product-detail-image">
+                    </div>
+
+                    <!-- Product Information -->
+                    <div class="col-12 col-lg-6">
+
+                        <article class="product-detail-info" itemscope itemtype="https://schema.org/Product">
+
+                            <h1 itemprop="name">
+                                Southern Traverse 45L Pack
+                            </h1>
+
+                            <div class="product-detail-rating">
+                                <span class="product-rating" aria-label="Rated 5 out of 5 stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="review-count">
+                                    24 reviews
+                                </span>
+                            </div>
+
+                            <div class="product-purchase-options">
+
+                                <p class="product-detail-price">
+                                    $<span itemprop="price">189.00</span>
+                                </p>
+
+                                <div class="product-option">
+
+                                    <label for="packColour" class="visually-hidden">
+                                        Colour
+                                    </label>
+
+                                    <select class="form-select" id="packColour" name="packColour">
+
+                                        <option value="" selected disabled>
+                                            Select Colour
+                                        </option>
+
+                                        <option value="Aotearoa Forest">
+                                            Aotearoa Forest
+                                        </option>
+
+                                        <option value="Alpine Blue">
+                                            Alpine Blue
+                                        </option>
+
+                                        <option value="Summit Charcoal">
+                                            Summit Charcoal
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <p class="product-description" itemprop="description">
+
+                                The Southern Traverse 45L Pack is designed for
+                                day hikes, overnight trips and longer adventures
+                                across New Zealand terrain. It features a
+                                comfortable adjustable harness, multiple storage
+                                compartments and durable weather-resistant
+                                materials.
+
+                            </p>
+
+                            <button class="btn btn-adventure" type="button" id="addToCartButton">
+
+                                <i class="bi bi-cart3"></i>
+                                Add to Cart
+
+                            </button>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Similar Products -->
+        <section class="similar-products-section">
+            <div class="container">
+
+                <h2 class="section-title text-center">
+                    Similar Products
+                </h2>
+
+                <div class="hero-divider"></div>
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="similar-product-card">
+
+                            <img src="images/alpine-ridge-boots.jpg" alt="Alpine Ridge hiking boots" class="img-fluid similar-product-image">
+
+                            <h3>Alpine Ridge Boots</h3>
+
+                            <p class="product-price">
+                                $179.00
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="similar-product-card">
+
+                            <img src="images/storm-ridge-jacket.jpg" alt="Storm Ridge waterproof jacket" class="img-fluid similar-product-image">
+
+                            <h3>Storm Ridge Rain Jacket</h3>
+
+                            <p class="product-price">
+                                $159.00
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                    <div class="col-12 col-md-4">
+
+                        <article class="similar-product-card">
+
+                            <img src="images/southern-trail-flask.jpg" alt="Southern Trail flask" class="img-fluid similar-product-image">
+
+                            <h3>Southern Trail Flask</h3>
+
+                            <p class="product-price">
+                                $39.00
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Reviews -->
+        <section class="product-reviews-section">
+            <div class="container">
+
+                <h2 class="section-title">
+                    Reviews
+                </h2>
+
+                <div class="review-row">
+
+                    <div class="review-profile">
+
+                        <div class="review-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+
+                        <div>
+                            <h3>Jamie Wilson</h3>
+
+                            <p class="review-date">
+                                August 14, 2026
+                            </p>
+
+                            <div class="product-rating"
+                                aria-label="Rated 5 out of 5 stars">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="review-content">
+                        <p>
+                            A really comfortable pack with plenty of room for an
+                            overnight trip. The compartments make it easy to organise
+                            gear and it stayed comfortable even when fully loaded.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="review-row">
+
+                    <div class="review-profile">
+
+                        <div class="review-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+
+                        <div>
+                            <h3>Morgan Lee</h3>
+
+                            <p class="review-date">
+                                July 28, 2026
+                            </p>
+
+                            <div class="product-rating"
+                                aria-label="Rated 4 out of 5 stars">
+                                ★★★★☆
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="review-content">
+                        <p>
+                            I have used this pack on several New Zealand trails and it
+                            has handled changing weather well. It feels durable and the
+                            adjustable harness gives a good fit.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </main>
+
+
+    <footer class="site-footer site-footer-simple">
+        <div class="container text-center">
+
+            <nav aria-label="Footer navigation">
+                <ul class="list-inline mb-2">
+
+                    <li class="list-inline-item">
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="shop.html">Shop</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#help">Help</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <p class="mb-0">
+                &copy; 2026 Aotearoa Adventure Gear
+            </p>
+
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+</body>
+</html>

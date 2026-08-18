@@ -254,3 +254,39 @@ if (browseAllButton) {
     });
 
 }
+
+
+// --------------------------------------------------
+// Product page - Add to Cart
+// --------------------------------------------------
+
+const addToCartButton = document.getElementById("addToCartButton");
+const colourSelect = document.getElementById("packColour");
+
+if (addToCartButton && colourSelect) {
+
+    addToCartButton.addEventListener("click", function () {
+
+        const selectedColour = colourSelect.value;
+
+        // Require the customer to select a colour first
+        if (selectedColour === "") {
+            alert("Please select a colour before adding this product to your cart.");
+            return;
+        }
+
+        const product = {
+            name: "Southern Traverse 45L Pack",
+            price: 189.00,
+            image: "images/southern-traverse-pack.jpg",
+            colour: selectedColour,
+            quantity: 1
+        };
+
+        localStorage.setItem("cartProduct", JSON.stringify(product));
+
+        addToCartButton.innerHTML =
+            '<i class="bi bi-check-lg"></i> Added to Cart';
+    });
+
+}
