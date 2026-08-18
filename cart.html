@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Aotearoa Adventure Gear - outdoor equipment and adventure gear for New Zealand explorers.">
+
+    <meta name="author" content="Molly Smith">
+
+    <title>Aotearoa Adventure Gear | Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body id="top">
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="Aotearoa Adventure Gear logo">
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help">Help</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-dark" href="cart.html">
+                                <i class="bi bi-cart3"></i> Your Cart</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- Checkout Progress -->
+        <section class="checkout-progress">
+            <div class="container">
+
+                <div class="row text-center">
+
+                    <div class="col-4 checkout-step active">
+                        <span>1. Shopping Cart</span>
+                    </div>
+
+                    <div class="col-4 checkout-step">
+                        <span>2. Shipping Details</span>
+                    </div>
+
+                    <div class="col-4 checkout-step">
+                        <span>3. Payment Options</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Shopping Cart -->
+        <section class="cart-section">
+            <div class="container">
+
+                <div class="row g-5">
+
+                    <!-- Cart Items -->
+                    <div class="col-12 col-lg-8">
+
+                        <h1 class="checkout-heading">
+                            Shopping Cart
+                        </h1>
+
+                        <!--
+                            JavaScript will insert the product
+                            saved in localStorage here.
+                        -->
+                        <div id="cartItems"></div>
+
+                        <!-- Empty cart message -->
+                        <p id="emptyCartMessage" class="d-none">
+                            Your cart is currently empty.
+                        </p>
+
+                        <div class="cart-actions">
+
+                            <a
+                                href="shipping.html"
+                                class="btn btn-adventure"
+                                id="checkoutButton">
+                                Next
+                            </a>
+
+                            <a
+                                href="shop.html"
+                                class="btn btn-light">
+                                Continue Shopping
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Order Summary -->
+                    <div class="col-12 col-lg-4">
+
+                        <aside class="cart-summary">
+
+                            <h2>Summary</h2>
+
+                            <div class="coupon-section">
+
+                                <label for="couponCode">
+                                    Enter Coupon Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="couponCode"
+                                    name="couponCode">
+
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="cartSubtotal">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="cartShipping">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Taxes</span>
+                                <span id="cartTax">$0.00</span>
+                            </div>
+
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="cartTotal">$0.00</span>
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer site-footer-simple">
+        <div class="container text-center">
+
+            <nav aria-label="Footer navigation">
+                <ul class="list-inline mb-2">
+
+                    <li class="list-inline-item">
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="shop.html">Shop</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#help">Help</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <p class="mb-0">
+                &copy; 2026 Aotearoa Adventure Gear
+            </p>
+
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+</body>
+</html>

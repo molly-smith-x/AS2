@@ -290,3 +290,143 @@ if (addToCartButton && colourSelect) {
     });
 
 }
+
+
+// --------------------------------------------------
+// Shopping cart
+// --------------------------------------------------
+
+const cartItemsContainer = document.getElementById("cartItems");
+const emptyCartMessage = document.getElementById("emptyCartMessage");
+const cartSubtotal = document.getElementById("cartSubtotal");
+const cartTax = document.getElementById("cartTax");
+const cartShipping = document.getElementById("cartShipping");
+const cartTotal = document.getElementById("cartTotal");
+const checkoutButton = document.getElementById("checkoutButton");
+
+if (cartItemsContainer) {
+
+    const savedProduct = localStorage.getItem("cartProduct");
+
+    if (savedProduct) {
+
+        const product = JSON.parse(savedProduct);
+
+        cartItemsContainer.innerHTML = `
+            <article class="cart-item">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                    class="cart-item-image">
+
+                <div class="cart-item-details">
+
+                    <h2>${product.name}</h2>
+
+                    <p class="cart-item-colour">
+                        Colour: ${product.colour}
+                    </p>
+
+                    <p class="cart-item-price">
+                        $${product.price.toFixed(2)}
+                    </p>
+
+                </div>
+
+                <div class="cart-quantity">
+
+                    <label for="cartQuantity">
+                        Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="cartQuantity"
+                        min="1"
+                        max="10"
+                        value="${product.quantity}">
+
+                </div>
+
+            </article>
+        `;
+
+        const quantityInput =
+            document.getElementById("cartQuantity");
+
+        function updateCartTotals() {
+
+            let quantity = Number(quantityInput.value);
+
+            if (quantity < 1) {
+                quantity = 1;
+                quantityInput.value = 1;
+            }
+
+            if (quantity > 10) {
+                quantity = 10;
+                quantityInput.value = 10;
+            }
+
+            const subtotal =
+                product.price * quantity;
+
+            const tax =
+                subtotal * 0.15;
+
+            // Order value including tax
+            const orderValue =
+                subtotal + tax;
+
+            // Free shipping for orders of $600 or more
+            const shipping =
+                orderValue >= 600 ? 0 : 15;
+
+            const total =
+                orderValue + shipping;
+
+            cartSubtotal.textContent =
+                `$${subtotal.toFixed(2)}`;
+
+            cartShipping.textContent =
+                shipping === 0
+                    ? "FREE"
+                    : `$${shipping.toFixed(2)}`;
+
+            cartTax.textContent =
+                `$${tax.toFixed(2)}`;
+
+            cartTotal.textContent =
+                `$${total.toFixed(2)}`;
+
+            product.quantity = quantity;
+
+            localStorage.setItem(
+                "cartProduct",
+                JSON.stringify(product)
+            );
+
+            localStorage.setItem(
+                "cartTotal",
+                total.toFixed(2)
+            );
+        }
+
+        quantityInput.addEventListener(
+            "input",
+            updateCartTotals
+        );
+
+        updateCartTotals();
+
+    } else {
+
+        emptyCartMessage.classList.remove("d-none");
+
+        checkoutButton.classList.add("disabled");
+        checkoutButton.setAttribute("aria-disabled", "true");
+    }
+
+}
