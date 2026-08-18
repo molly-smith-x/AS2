@@ -22,9 +22,9 @@ function calculateOrderTotals(product) {
     const tax = subtotal * TAX_RATE;
     const orderValue = subtotal + tax;
 
-    // Shipping is free when the order including tax is $600 or more
+    // Shipping is free when the order including tax is more than $600 
     const shipping =
-        orderValue >= FREE_SHIPPING_THRESHOLD
+        orderValue > FREE_SHIPPING_THRESHOLD
             ? 0
             : STANDARD_SHIPPING_COST;
 
@@ -952,6 +952,342 @@ function initialiseShippingPage() {
     );
 }
 
+// ==================================================
+// PAYMENT PAGE
+// ==================================================
+
+
+// --------------------------------------------------
+// Payment method and order summary
+// --------------------------------------------------
+
+function initialisePaymentPage() {
+
+    const paymentForm =
+        document.getElementById("paymentForm");
+
+    // Stop if this is not the payment page
+    if (!paymentForm) {
+        return;
+    }
+
+
+    const cardPayment =
+        document.getElementById("cardPayment");
+
+    const paypalPayment =
+        document.getElementById("paypalPayment");
+
+    const cardFields =
+        document.getElementById("cardFields");
+
+    const paymentSummaryProduct =
+        document.getElementById("paymentSummaryProduct");
+
+    const paymentSubtotal =
+        document.getElementById("paymentSubtotal");
+
+    const paymentShipping =
+        document.getElementById("paymentShipping");
+
+    const paymentTax =
+        document.getElementById("paymentTax");
+
+    const paymentTotal =
+        document.getElementById("paymentTotal");
+
+
+    // --------------------------------------------------
+    // Payment method
+    // --------------------------------------------------
+
+    function updatePaymentMethod() {
+
+        const cardInputs =
+            cardFields.querySelectorAll("input");
+
+        if (cardPayment.checked) {
+
+            cardFields.classList.remove("d-none");
+
+            cardInputs.forEach(function (input) {
+                input.required = true;
+            });
+
+        } else {
+
+            cardFields.classList.add("d-none");
+
+            cardInputs.forEach(function (input) {
+                input.required = false;
+            });
+        }
+    }
+
+
+    cardPayment.addEventListener(
+        "change",
+        updatePaymentMethod
+    );
+
+    paypalPayment.addEventListener(
+        "change",
+        updatePaymentMethod
+    );
+
+    updatePaymentMethod();
+
+    // --------------------------------------------------
+    // Card input formatting
+    // --------------------------------------------------
+
+    const cardNumberInput =
+        document.getElementById("cardNumber");
+
+    const cardExpiryInput =
+        document.getElementById("cardExpiry");
+
+    const cardCvvInput =
+        document.getElementById("cardCvv");
+
+
+    // Format card number as: 0000 0000 0000 0000
+    cardNumberInput.addEventListener(
+        "input",
+        function () {
+
+            let value =
+                cardNumberInput.value.replace(/\D/g, "");
+
+            value = value.substring(0, 16);
+
+            const groups =
+                value.match(/.{1,4}/g);
+
+            cardNumberInput.value =
+                groups ? groups.join(" ") : "";
+        }
+    );
+
+
+    // Format expiry as: MM / YY
+    cardExpiryInput.addEventListener(
+        "input",
+        function () {
+
+            let value =
+                cardExpiryInput.value.replace(/\D/g, "");
+
+            value = value.substring(0, 4);
+
+            if (value.length > 2) {
+
+                value =
+                    value.substring(0, 2) +
+                    " / " +
+                    value.substring(2);
+            }
+
+            cardExpiryInput.value = value;
+        }
+    );
+
+
+    // Allow numbers only in CVV
+    cardCvvInput.addEventListener(
+        "input",
+        function () {
+
+            cardCvvInput.value =
+                cardCvvInput.value
+                    .replace(/\D/g, "")
+                    .substring(0, 4);
+        }
+    );
+
+
+    // --------------------------------------------------
+    // Order summary
+    // --------------------------------------------------
+
+    const product =
+        getSavedProduct();
+
+    if (!product) {
+
+        paymentSummaryProduct.innerHTML = `
+            <p class="text-muted">
+                Your cart is empty.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    const totals =
+        calculateOrderTotals(product);
+
+
+    paymentSummaryProduct.innerHTML = `
+        <div class="shipping-summary-product">
+
+            <img
+                src="${product.image}"
+                alt="${product.name}">
+
+            <div>
+
+                <strong>
+                    ${product.name}
+                </strong>
+
+                <small>
+                    ${product.colour}
+                </small>
+
+                <small>
+                    Quantity: ${product.quantity}
+                </small>
+
+            </div>
+
+        </div>
+    `;
+
+
+    paymentSubtotal.textContent =
+        formatCurrency(totals.subtotal);
+
+    paymentShipping.textContent =
+        totals.shipping === 0
+            ? "FREE"
+            : formatCurrency(totals.shipping);
+
+    paymentTax.textContent =
+        formatCurrency(totals.tax);
+
+    paymentTotal.textContent =
+        formatCurrency(totals.total);
+
+    // --------------------------------------------------
+    // Payment validation
+    // --------------------------------------------------
+
+    paymentForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+            const selectedPaymentMethod =
+                document.querySelector(
+                    'input[name="paymentMethod"]:checked'
+                );
+
+            if (!selectedPaymentMethod) {
+
+                alert(
+                    "Please select a payment method."
+                );
+
+                return;
+            }
+
+
+            // Credit card validation
+            if (
+                selectedPaymentMethod.value === "card"
+            ) {
+
+                const cardNumber =
+                    document
+                        .getElementById("cardNumber")
+                        .value.replace(/\s/g, "");
+
+                const cardExpiry =
+                    document
+                        .getElementById("cardExpiry")
+                        .value.trim();
+
+                const cardCvv =
+                    document
+                        .getElementById("cardCvv")
+                        .value.trim();
+
+                const cardHolder =
+                    document
+                        .getElementById("cardHolder")
+                        .value.trim();
+
+
+                // Cardholder name
+                if (cardHolder === "") {
+
+                    alert(
+                        "Please enter the cardholder name."
+                    );
+
+                    return;
+                }
+
+
+                // Card number must contain 16 digits
+                if (!/^\d{16}$/.test(cardNumber)) {
+
+                    alert(
+                        "Please enter a valid 16-digit card number."
+                    );
+
+                    return;
+                }
+
+
+                // Expiry must use MM / YY format
+                if (
+                    !/^(0[1-9]|1[0-2])\s?\/\s?\d{2}$/.test(
+                        cardExpiry
+                    )
+                ) {
+
+                    alert(
+                        "Please enter the expiry date in MM / YY format."
+                    );
+
+                    return;
+                }
+
+
+                // CVV must contain 3 or 4 digits
+                if (!/^\d{3,4}$/.test(cardCvv)) {
+
+                    alert(
+                        "Please enter a valid CVV."
+                    );
+
+                    return;
+                }
+            }
+
+
+            // --------------------------------------------------
+            // Successful checkout
+            // --------------------------------------------------
+
+            const paymentMessage =
+                document.getElementById(
+                    "paymentMessage"
+                );
+
+            paymentMessage.textContent =
+                "Payment details accepted. Your order has been placed successfully.";
+
+            paymentMessage.classList.add(
+                "payment-success"
+            );
+        }
+    );
+}
 
 // ==================================================
 // INITIALISE PAGE FEATURES
@@ -968,3 +1304,4 @@ initialiseShopFilters();
 initialiseAddToCart();
 initialiseShoppingCart();
 initialiseShippingPage();
+initialisePaymentPage();

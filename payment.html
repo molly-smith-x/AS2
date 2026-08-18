@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Aotearoa Adventure Gear - outdoor equipment and adventure gear for New Zealand explorers.">
+
+    <meta name="author" content="Molly Smith">
+
+    <title>Aotearoa Adventure Gear | Payment Options</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body id="top">
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="Aotearoa Adventure Gear logo">
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help">Help</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-dark" href="cart.html">
+                                <i class="bi bi-cart3"></i> Your Cart</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- Checkout Progress -->
+        <section class="checkout-progress">
+            <div class="container">
+
+                <div class="row text-center">
+
+                    <div class="col-4 checkout-step">
+                        <span>1. Shopping Cart</span>
+                    </div>
+
+                    <div class="col-4 checkout-step">
+                        <span>2. Shipping Details</span>
+                    </div>
+
+                    <div class="col-4 checkout-step active">
+                        <span>3. Payment Options</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Payment Options -->
+        <section class="payment-section">
+            <div class="container">
+
+                <div class="row g-5">
+
+                    <!-- Payment Method -->
+                    <div class="col-12 col-lg-8">
+
+                        <h1 class="checkout-heading">
+                            Payment Method
+                        </h1>
+
+                        <form id="paymentForm">
+
+                            <!-- Credit Card -->
+                            <div class="payment-method-card">
+
+                                <label class="payment-method-heading">
+
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="card"
+                                        id="cardPayment"
+                                        checked>
+
+                                    <span>Credit Card</span>
+
+                                </label>
+
+                                <div class="payment-card-fields" id="cardFields">
+
+                                    <div class="row g-3">
+
+                                        <!-- Card Number, Expiry and CVV -->
+                                        <div class="col-12 col-md-6">
+
+                                            <label
+                                                for="cardNumber"
+                                                class="visually-hidden">
+                                                Card Number
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="cardNumber"
+                                                name="cardNumber"
+                                                placeholder="0000 0000 0000 0000"
+                                                inputmode="numeric"
+                                                maxlength="19"
+                                                required>
+
+                                        </div>
+
+
+                                        <div class="col-6 col-md-3">
+
+                                            <label
+                                                for="cardExpiry"
+                                                class="visually-hidden">
+                                                Expiry Date
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="cardExpiry"
+                                                name="cardExpiry"
+                                                placeholder="MM / YY"
+                                                maxlength="7"
+                                                required>
+
+                                        </div>
+
+
+                                        <div class="col-6 col-md-3">
+
+                                            <label
+                                                for="cardCvv"
+                                                class="visually-hidden">
+                                                CVV
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="cardCvv"
+                                                name="cardCvv"
+                                                placeholder="CVV"
+                                                inputmode="numeric"
+                                                maxlength="4"
+                                                required>
+
+                                        </div>
+
+
+                                        <!-- Cardholder Name -->
+                                        <div class="col-12">
+
+                                            <label
+                                                for="cardHolder"
+                                                class="visually-hidden">
+                                                Cardholder Name
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="cardHolder"
+                                                name="cardHolder"
+                                                placeholder="Cardholder Name"
+                                                required>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PayPal -->
+                            <div class="payment-method-card">
+
+                                <label class="payment-method-heading">
+
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="paypal"
+                                        id="paypalPayment">
+
+                                    <span>PayPal</span>
+
+                                </label>
+
+                                <p class="payment-method-description">
+                                    Continue using PayPal as the selected payment method.
+                                    No real payment will be processed.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+                            <div class="cart-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-adventure">
+                                    Pay Now
+                                </button>
+
+                                <a href="shipping.html" class="btn btn-light">
+                                    Back
+                                </a>
+
+                            </div>
+
+                            <div id="paymentMessage" class="payment-message" aria-live="polite">
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- Summary -->
+                    <div class="col-12 col-lg-4">
+
+                        <aside class="cart-summary">
+
+                            <h2>Summary</h2>
+
+                            <div id="paymentSummaryProduct">
+                                <!-- Inserted by JavaScript -->
+                            </div>
+
+                            <div class="voucher-section">
+
+                                <button
+                                    class="voucher-toggle"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#paymentVoucherForm"
+                                    aria-expanded="false"
+                                    aria-controls="paymentVoucherForm">
+
+                                    <span>Have a Voucher?</span>
+
+                                    <i class="bi bi-chevron-down"></i>
+
+                                </button>
+
+                                <div class="collapse" id="paymentVoucherForm">
+
+                                    <div class="voucher-content">
+
+                                        <label
+                                            for="paymentVoucherCode"
+                                            class="visually-hidden">
+                                            Voucher code
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="paymentVoucherCode"
+                                            placeholder="Enter voucher code">
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-adventure">
+                                            Apply
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="paymentSubtotal">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="paymentShipping">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Taxes</span>
+                                <span id="paymentTax">$0.00</span>
+                            </div>
+
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="paymentTotal">$0.00</span>
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer site-footer-simple">
+        <div class="container text-center">
+
+            <nav aria-label="Footer navigation">
+                <ul class="list-inline mb-2">
+
+                    <li class="list-inline-item">
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="shop.html">Shop</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#help">Help</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <p class="mb-0">
+                &copy; 2026 Aotearoa Adventure Gear
+            </p>
+
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+</body>
+</html>
