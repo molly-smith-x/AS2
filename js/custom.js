@@ -430,3 +430,194 @@ if (cartItemsContainer) {
     }
 
 }
+
+// --------------------------------------------------
+// Shipping details page
+// --------------------------------------------------
+
+const shippingForm = document.getElementById("shippingForm");
+
+if (shippingForm) {
+
+    const savedProduct = localStorage.getItem("cartProduct");
+
+    const shippingSummaryProduct =
+        document.getElementById("shippingSummaryProduct");
+
+    const shippingSubtotal =
+        document.getElementById("shippingSubtotal");
+
+    const shippingCost =
+        document.getElementById("shippingCost");
+
+    const shippingTax =
+        document.getElementById("shippingTax");
+
+    const shippingTotal =
+        document.getElementById("shippingTotal");
+
+
+    // --------------------------------------------------
+    // Display order summary
+    // --------------------------------------------------
+
+    if (savedProduct) {
+
+        const product = JSON.parse(savedProduct);
+
+        const subtotal =
+            product.price * product.quantity;
+
+        const tax =
+            subtotal * 0.15;
+
+        const orderValue =
+            subtotal + tax;
+
+        // Free shipping when order value is $600 or more
+        const shipping =
+            orderValue >= 600 ? 0 : 15;
+
+        const total =
+            orderValue + shipping;
+
+
+        shippingSummaryProduct.innerHTML = `
+            <div class="shipping-summary-product">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}">
+
+                <div>
+                    <strong>${product.name}</strong>
+
+                    <small>
+                        ${product.colour}
+                    </small>
+
+                    <small>
+                        Quantity: ${product.quantity}
+                    </small>
+                </div>
+
+            </div>
+        `;
+
+
+        shippingSubtotal.textContent =
+            `$${subtotal.toFixed(2)}`;
+
+        shippingCost.textContent =
+            shipping === 0
+                ? "FREE"
+                : `$${shipping.toFixed(2)}`;
+
+        shippingTax.textContent =
+            `$${tax.toFixed(2)}`;
+
+        shippingTotal.textContent =
+            `$${total.toFixed(2)}`;
+
+
+        // Save total for payment page
+        localStorage.setItem(
+            "cartTotal",
+            total.toFixed(2)
+        );
+    }
+
+
+    // --------------------------------------------------
+    // Validate shipping form
+    // --------------------------------------------------
+
+    shippingForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const firstName =
+            document.getElementById("firstName").value.trim();
+
+        const lastName =
+            document.getElementById("lastName").value.trim();
+
+        const address =
+            document.getElementById("address").value.trim();
+
+        const country =
+            document.getElementById("country").value;
+
+        const city =
+            document.getElementById("city").value.trim();
+
+        const postcode =
+            document.getElementById("postcode").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+
+        // Check required fields
+        if (
+            firstName === "" ||
+            lastName === "" ||
+            address === "" ||
+            country === "" ||
+            city === "" ||
+            postcode === "" ||
+            phone === ""
+        ) {
+            alert("Please complete all required shipping details.");
+            return;
+        }
+
+
+        // Check NZ postcode
+        if (country === "NZ" && !/^\d{4}$/.test(postcode)) {
+            alert("Please enter a valid 4-digit New Zealand postcode.");
+            return;
+        }
+
+
+        // Check phone number
+        if (!/^[0-9+\s-]{7,15}$/.test(phone)) {
+            alert("Please enter a valid phone number.");
+            return;
+        }
+
+
+        // Find selected shipping method
+        const shippingMethod =
+            document.querySelector(
+                'input[name="shippingMethod"]:checked'
+            ).value;
+
+
+        // Save shipping information
+        const shippingDetails = {
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            address2:
+                document.getElementById("address2").value.trim(),
+            country: country,
+            city: city,
+            postcode: postcode,
+            phone: phone,
+            shippingMethod: shippingMethod
+        };
+
+
+        localStorage.setItem(
+            "shippingDetails",
+            JSON.stringify(shippingDetails)
+        );
+
+
+        // Continue to payment
+        window.location.href = "payment.html";
+
+    });
+
+}

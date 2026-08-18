@@ -885,6 +885,167 @@ body {
     font-weight: 600;
 }
 
+/* --------------------------------------------------
+   Shipping Details
+-------------------------------------------------- */
+
+.shipping-section {
+    padding: 4rem 0 6rem;
+}
+
+.shipping-section .form-control,
+.shipping-section .form-select {
+    min-height: 48px;
+    border-color: var(--colour-border);
+}
+
+.shipping-section .form-control:focus,
+.shipping-section .form-select:focus {
+    border-color: var(--colour-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(79, 120, 145, 0.15);
+}
+
+
+/* Shipping options */
+
+.shipping-methods {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+    border-top: 1px solid var(--colour-border);
+    border-bottom: 1px solid var(--colour-border);
+}
+
+.shipping-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    min-height: 90px;
+    padding: 1rem;
+
+    border: 1px solid var(--colour-border);
+    cursor: pointer;
+}
+
+.shipping-option input {
+    flex-shrink: 0;
+}
+
+.shipping-option span {
+    display: flex;
+    flex-direction: column;
+}
+
+.shipping-option strong {
+    color: var(--colour-primary);
+    font-weight: 500;
+}
+
+.shipping-option small {
+    color: var(--colour-muted);
+    margin-top: 0.25rem;
+}
+
+
+/* Selected shipping option */
+
+.shipping-option:has(input:checked) {
+    background-color: var(--colour-surface);
+    border-color: var(--colour-primary);
+}
+
+/* Shipping order summary product */
+
+.shipping-summary-product {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+
+    border-bottom: 1px solid var(--colour-border);
+}
+
+.shipping-summary-product img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.shipping-summary-product div {
+    display: flex;
+    flex-direction: column;
+}
+
+.shipping-summary-product strong {
+    color: var(--colour-primary);
+    font-size: 0.9rem;
+}
+
+.shipping-summary-product small {
+    color: var(--colour-muted);
+    margin-top: 0.2rem;
+}
+
+/* Voucher section */
+
+.voucher-section {
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--colour-border);
+    border-bottom: 1px solid var(--colour-border);
+}
+
+.voucher-toggle {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.9rem 0;
+
+    background: none;
+    border: none;
+
+    color: var(--colour-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+
+    cursor: pointer;
+}
+
+.voucher-toggle:hover {
+    color: var(--colour-primary);
+}
+
+.voucher-content {
+    display: flex;
+    gap: 0.75rem;
+
+    padding-bottom: 1rem;
+}
+
+.voucher-content .form-control {
+    flex: 1;
+}
+
+.voucher-content .btn-adventure {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+/* Mobile */
+
+@media (max-width: 767.98px) {
+
+    .shipping-section {
+        padding: 3rem 0;
+    }
+
+}
+
 
 /* Responsive cart */
 

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Aotearoa Adventure Gear - outdoor equipment and adventure gear for New Zealand explorers.">
+
+    <meta name="author" content="Molly Smith">
+
+    <title>Aotearoa Adventure Gear | Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body id="top">
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="Aotearoa Adventure Gear logo">
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help">Help</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-dark" href="cart.html">
+                                <i class="bi bi-cart3"></i> Your Cart</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- Checkout Progress -->
+        <section class="checkout-progress">
+            <div class="container">
+
+                <div class="row text-center">
+
+                    <div class="col-4 checkout-step">
+                        <span>1. Shopping Cart</span>
+                    </div>
+
+                    <div class="col-4 checkout-step active">
+                        <span>2. Shipping Details</span>
+                    </div>
+
+                    <div class="col-4 checkout-step">
+                        <span>3. Payment Options</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Shipping Details -->
+        <section class="shipping-section">
+            <div class="container">
+
+                <div class="row g-5">
+
+                    <!-- Shipping Form -->
+                    <div class="col-12 col-lg-8">
+
+                        <h1 class="checkout-heading">
+                            Shipping Details
+                        </h1>
+
+                        <form id="shippingForm" novalidate>
+
+                            <!-- Name -->
+                            <div class="row g-3 mb-3">
+
+                                <div class="col-12 col-md-6">
+                                    <label for="firstName" class="visually-hidden">
+                                        First Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="firstName"
+                                        name="firstName"
+                                        placeholder="First Name"
+                                        required>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="lastName" class="visually-hidden">
+                                        Last Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder="Last Name"
+                                        required>
+                                </div>
+
+                            </div>
+
+
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <label for="address" class="visually-hidden">
+                                    Address
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="address"
+                                    name="address"
+                                    placeholder="Address"
+                                    required>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="address2" class="visually-hidden">
+                                    Address 2
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="address2"
+                                    name="address2"
+                                    placeholder="Address 2 (optional)">
+                            </div>
+
+
+                            <!-- Country / City -->
+                            <div class="row g-3 mb-3">
+
+                                <div class="col-12 col-md-6">
+
+                                    <label for="country" class="visually-hidden">
+                                        Country
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        id="country"
+                                        name="country"
+                                        required>
+
+                                        <option value="" selected disabled>
+                                            Country
+                                        </option>
+
+                                        <option value="NZ">
+                                            New Zealand
+                                        </option>
+
+                                        <option value="AU">
+                                            Australia
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label for="city" class="visually-hidden">
+                                        City
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="city"
+                                        name="city"
+                                        placeholder="City"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Postcode / Phone -->
+                            <div class="row g-3 mb-4">
+
+                                <div class="col-12 col-md-6">
+
+                                    <label for="postcode" class="visually-hidden">
+                                        Postcode
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="postcode"
+                                        name="postcode"
+                                        placeholder="Postcode"
+                                        required>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label for="phone" class="visually-hidden">
+                                        Phone Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="Phone Number"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Shipping Method -->
+                            <div class="row g-3 shipping-methods">
+
+                                <div class="col-12 col-md-6">
+
+                                    <label class="shipping-option">
+
+                                        <input
+                                            type="radio"
+                                            name="shippingMethod"
+                                            value="standard"
+                                            checked>
+
+                                        <span>
+                                            <strong>Standard Shipping</strong>
+                                            <small>2-5 working days</small>
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                                <div class="col-12 col-md-6">
+
+                                    <label class="shipping-option">
+
+                                        <input
+                                            type="radio"
+                                            name="shippingMethod"
+                                            value="express">
+
+                                        <span>
+                                            <strong>Express Delivery</strong>
+                                            <small>1-2 working days</small>
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+                            <div class="cart-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-adventure">
+                                    Next
+                                </button>
+
+                                <a
+                                    href="cart.html"
+                                    class="btn btn-light">
+                                    Back
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- Summary -->
+                    <div class="col-12 col-lg-4">
+
+                        <aside class="cart-summary">
+
+                            <h2>Summary</h2>
+
+                            <div id="shippingSummaryProduct">
+                                <!-- Product inserted by JavaScript later -->
+                            </div>
+
+                            <div class="voucher-section">
+
+                                <button
+                                    class="voucher-toggle"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#voucherForm"
+                                    aria-expanded="false"
+                                    aria-controls="voucherForm">
+
+                                    <span>Have a Voucher?</span>
+
+                                    <i class="bi bi-chevron-down"></i>
+
+                                </button>
+
+                                <div class="collapse" id="voucherForm">
+
+                                    <div class="voucher-content">
+
+                                        <label for="voucherCode" class="visually-hidden">
+                                            Voucher code
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="voucherCode"
+                                            placeholder="Enter voucher code">
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-adventure"
+                                            id="applyVoucherButton">
+                                            Apply
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="shippingSubtotal">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="shippingCost">$0.00</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Taxes</span>
+                                <span id="shippingTax">$0.00</span>
+                            </div>
+
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="shippingTotal">$0.00</span>
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer site-footer-simple">
+        <div class="container text-center">
+
+            <nav aria-label="Footer navigation">
+                <ul class="list-inline mb-2">
+
+                    <li class="list-inline-item">
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="shop.html">Shop</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#help">Help</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <p class="mb-0">
+                &copy; 2026 Aotearoa Adventure Gear
+            </p>
+
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+</body>
+</html>
