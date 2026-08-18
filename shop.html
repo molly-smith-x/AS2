@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Aotearoa Adventure Gear - outdoor equipment and adventure gear for New Zealand explorers.">
+
+    <meta name="author" content="Molly Smith">
+
+    <title>Aotearoa Adventure Gear | Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body id="top">
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="Aotearoa Adventure Gear logo">
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#help">Help</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-dark" href="cart.html">
+                                <i class="bi bi-cart3"></i> Your Cart</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="shop-search-section">
+            <div class="container text-center">
+
+                <h1 class="shop-title">
+                    Find Gear for Your Next Adventure
+                </h1>
+
+                <div class="hero-divider"></div>
+
+                <form class="shop-search-form" id="shopSearchForm">
+
+                    <label for="shopSearch" class="visually-hidden">
+                        Search products
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input
+                            type="search"
+                            class="form-control"
+                            id="shopSearchInput"
+                            placeholder="Search products..."
+                            aria-label="Search products">
+
+                        <button class="btn btn-adventure" type="submit">
+                            Search
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <p class="search-message" id="searchMessage" aria-live="polite"></p>
+
+            </div>
+        </section>
+
+        <!-- Featured Categories -->
+        <section class="featured-categories">
+            <div class="container">
+
+                <div class="text-center mb-5">
+                    <h2>Featured Categories</h2>
+                    <p class="section-intro">
+                        Explore outdoor gear for your next adventure.
+                    </p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+
+                    <!-- Hiking -->
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="category-card text-decoration-none" data-category="hiking">
+
+                            <img src="images/category-hiking.jpg" alt="Hiking and backpacking gear" class="img-fluid">
+
+                            <h3>Hiking &amp; Packs</h3>
+                        </a>
+                    </div>
+
+                    <!-- Camping -->
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="category-card text-decoration-none" data-category="camping">
+
+                            <img src="images/category-camping.jpg" alt="Camping equipment" class="img-fluid">
+
+                            <h3>Camping</h3>
+                        </a>
+                    </div>
+
+                    <!-- Clothing -->
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="category-card text-decoration-none" data-category="clothing">
+
+                            <img src="images/category-clothing.jpg" alt="Outdoor clothing" class="img-fluid">
+
+                            <h3>Outdoor Clothing</h3>
+                        </a>
+                    </div>
+
+                    <!-- Shop All -->
+                    <div class="col-6 col-md-3">
+                        <a href="#products" class="shop-all-card text-decoration-none" data-category="all">
+                            Shop All
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Shop Newsletter -->
+        <section class="shop-newsletter-section">
+            <div class="container-fluid p-0">
+
+                <div class="row g-0 align-items-stretch">
+
+                    <div class="col-12 col-md-4 shop-newsletter-image">
+                        <img src="images/newsletter-outdoors.jpg" alt="Outdoor adventure equipment" class="img-fluid">
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="shop-newsletter-content">
+
+                            <h2>Newsletter</h2>
+
+                            <form class="shop-newsletter-form" id="shopNewsletterForm">
+
+                                <label for="shopNewsletterEmail" class="visually-hidden">
+                                    Email address
+                                </label>
+
+                                <div class="input-group">
+
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="shopNewsletterEmail"
+                                        name="shopNewsletterEmail"
+                                        placeholder="Email address"
+                                        required>
+
+                                    <button
+                                        class="btn btn-adventure"
+                                        type="submit">
+                                        Subscribe
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Main Product Section -->
+        <section class="shop-products-section" id="products">
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <!-- Product introduction -->
+                    <div class="col-12 col-lg-3">
+                        <div class="shop-products-intro">
+
+                            <h2>Explore Our Gear</h2>
+                            <p>
+                                Equipment selected for New Zealand adventures,
+                                from weekend camping to longer trips on the trail.
+                            </p>
+
+                            <button
+                                class="btn btn-adventure"
+                                type="button"
+                                id="browseAllProducts">
+                                Browse All
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Product Grid -->
+                    <div class="col-12 col-lg-9">
+
+                        <div class="row g-4" id="shopProductGrid">
+
+                            <!-- Product 1 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="hiking" data-name="Southern Traverse 45L Pack">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/southern-traverse-pack.jpg" alt="Southern Traverse 45L hiking backpack" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Southern Traverse 45L Pack</h3>
+
+                                        <div class="product-rating" aria-label="Rated 5 out of 5 stars">
+                                            ★★★★★
+                                        </div>
+
+                                        <p class="product-price">$189.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- Product 2 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="camping" data-name="Kea 2-Person Tent">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/kea-tent.jpg" alt="Kea two-person hiking tent" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Kea 2-Person Tent</h3>
+
+                                        <div class="product-rating" aria-label="Rated 5 out of 5 stars">
+                                            ★★★★★
+                                        </div>
+
+                                        <p class="product-price">$249.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- Product 3 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="clothing" data-name="Storm Ridge Rain Jacket">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/storm-ridge-jacket.jpg" alt="Storm Ridge waterproof rain jacket" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Storm Ridge Rain Jacket</h3>
+
+                                        <div class="product-rating" aria-label="Rated 4 out of 5 stars">
+                                            ★★★★☆
+                                        </div>
+
+                                        <p class="product-price">$159.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- Product 4 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="clothing" data-name="Alpine Ridge Boots">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/alpine-ridge-boots.jpg" alt="Alpine Ridge outdoor boots" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Alpine Ridge Boots</h3>
+
+                                        <div class="product-rating" aria-label="Rated 5 out of 5 stars">
+                                            ★★★★★
+                                        </div>
+
+                                        <p class="product-price">$179.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- Product 5 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="hiking" data-name="Southern Trail Flask">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/southern-trail-flask.jpg" alt="Southern Trail stainless steel flask" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Southern Trail Flask</h3>
+
+                                        <div class="product-rating" aria-label="Rated 4 out of 5 stars">
+                                            ★★★★☆
+                                        </div>
+
+                                        <p class="product-price">$39.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                            <!-- Product 6 -->
+                            <div class="col-12 col-md-6 shop-product" data-category="camping" data-name="Trail Camp Cookset">
+
+                                <article class="shop-product-card">
+
+                                    <img src="images/trail-camp-cookset.jpg" alt="Compact outdoor camping cookset" class="shop-product-image">
+
+                                    <div class="shop-product-details">
+
+                                        <h3>Trail Camp Cookset</h3>
+
+                                        <div class="product-rating" aria-label="Rated 4 out of 5 stars">
+                                            ★★★★☆
+                                        </div>
+
+                                        <p class="product-price">$69.00</p>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer site-footer-simple">
+        <div class="container text-center">
+
+            <nav aria-label="Footer navigation">
+                <ul class="list-inline mb-2">
+
+                    <li class="list-inline-item">
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="shop.html">Shop</a>
+                    </li>
+
+                    <li class="list-inline-item footer-divider">|</li>
+
+                    <li class="list-inline-item">
+                        <a href="#help">Help</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <p class="mb-0">
+                &copy; 2026 Aotearoa Adventure Gear
+            </p>
+
+        </div>
+    </footer>
+
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+</body>
+</html>

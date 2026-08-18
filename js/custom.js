@@ -51,6 +51,10 @@ function displayFeaturedProducts() {
     const productContainer =
         document.getElementById("featuredProducts");
 
+    if (!productContainer) {
+        return;
+    }
+
     productContainer.innerHTML = "";
 
     const productsPerView = getProductsPerView();
@@ -103,32 +107,40 @@ function displayFeaturedProducts() {
 const nextButton =
     document.getElementById("nextProduct");
 
-nextButton.addEventListener("click", function () {
+if (nextButton) {
 
-    currentProductIndex++;
+    nextButton.addEventListener("click", function () {
 
-    if (currentProductIndex >= featuredProducts.length) {
-        currentProductIndex = 0;
-    }
+        currentProductIndex++;
 
-    displayFeaturedProducts();
-});
+        if (currentProductIndex >= featuredProducts.length) {
+            currentProductIndex = 0;
+        }
+
+        displayFeaturedProducts();
+    });
+
+}
 
 
 const previousButton =
     document.getElementById("previousProduct");
 
-previousButton.addEventListener("click", function () {
+if (previousButton) {
 
-    currentProductIndex--;
+    previousButton.addEventListener("click", function () {
 
-    if (currentProductIndex < 0) {
-        currentProductIndex =
-            featuredProducts.length - 1;
-    }
+        currentProductIndex--;
 
-    displayFeaturedProducts();
-});
+        if (currentProductIndex < 0) {
+            currentProductIndex =
+                featuredProducts.length - 1;
+        }
+
+        displayFeaturedProducts();
+    });
+
+}
 
 
 window.addEventListener("resize", function () {
@@ -143,11 +155,102 @@ displayFeaturedProducts();
 const backToTopButton =
     document.getElementById("backToTop");
 
-window.addEventListener("scroll", function () {
+if (backToTopButton) {
 
-    if (window.scrollY > 400) {
-        backToTopButton.classList.add("show");
-    } else {
-        backToTopButton.classList.remove("show");
-    }
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 400) {
+            backToTopButton.classList.add("show");
+        } else {
+            backToTopButton.classList.remove("show");
+        }
+
+    });
+
+}
+
+// --------------------------------------------------
+// Shop product filtering
+// --------------------------------------------------
+
+const searchForm = document.getElementById("shopSearchForm");
+const searchInput = document.getElementById("shopSearchInput");
+const products = document.querySelectorAll(".shop-product");
+const categoryCards = document.querySelectorAll(".category-card, .shop-all-card");
+const browseAllButton = document.getElementById("browseAllProducts");
+
+
+// Search for products
+if (searchForm) {
+
+    searchForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        products.forEach(function (product) {
+
+            const productName = product.dataset.name.toLowerCase();
+            const productCategory = product.dataset.category.toLowerCase();
+
+            if (
+                productName.includes(searchTerm) ||
+                productCategory.includes(searchTerm)
+            ) {
+                product.style.display = "";
+            } else {
+                product.style.display = "none";
+            }
+
+        });
+
+        document.getElementById("products").scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+}
+
+
+// Filter products by category
+categoryCards.forEach(function (card) {
+
+    card.addEventListener("click", function () {
+
+        const selectedCategory = card.dataset.category;
+
+        products.forEach(function (product) {
+
+            if (
+                selectedCategory === "all" ||
+                product.dataset.category === selectedCategory
+            ) {
+                product.style.display = "";
+            } else {
+                product.style.display = "none";
+            }
+
+        });
+
+    });
+
 });
+
+
+// Browse All button
+if (browseAllButton) {
+
+    browseAllButton.addEventListener("click", function () {
+
+        products.forEach(function (product) {
+            product.style.display = "";
+        });
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+    });
+
+}
